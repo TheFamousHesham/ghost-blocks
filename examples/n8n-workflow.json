@@ -1,0 +1,61 @@
+{
+  "name": "Ghost Blocks: Publish from a topic",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "When clicking 'Test workflow'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"topic\": \"Why simple APIs win\",\n  \"summary\": \"A short post about the benefits of building developer-friendly APIs.\"\n}"
+      },
+      "id": "set-topic",
+      "name": "Set topic",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [400, 300]
+    },
+    {
+      "parameters": {
+        "resource": "post",
+        "operation": "create",
+        "title": "={{ $json.topic }}",
+        "content": "=[\n  { \"type\": \"paragraph\", \"text\": {{ JSON.stringify($json.summary) }} },\n  { \"type\": \"heading\", \"level\": 2, \"text\": \"Why this matters\" },\n  { \"type\": \"paragraph\", \"text\": \"Simple, focused interfaces ship faster and are easier to reason about. They reduce cognitive load and make automation trivial.\" },\n  { \"type\": \"divider\" },\n  { \"type\": \"callout\", \"text\": \"This post was published by an n8n workflow.\", \"emoji\": \"\\ud83e\\udd16\", \"color\": \"blue\" }\n]",
+        "additionalFields": {
+          "status": "draft",
+          "tags": "automation, n8n"
+        },
+        "seo": {
+          "meta_description": "={{ $json.summary }}"
+        }
+      },
+      "id": "ghost-publish",
+      "name": "Publish to Ghost",
+      "type": "n8n-nodes-ghost-blocks.ghostBlocks",
+      "typeVersion": 1,
+      "position": [600, 300],
+      "credentials": {
+        "ghostBlocksApi": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL_ID",
+          "name": "Ghost Blocks API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking 'Test workflow'": {
+      "main": [[{ "node": "Set topic", "type": "main", "index": 0 }]]
+    },
+    "Set topic": {
+      "main": [[{ "node": "Publish to Ghost", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "staticData": null,
+  "meta": { "templateCredsSetupCompleted": false }
+}

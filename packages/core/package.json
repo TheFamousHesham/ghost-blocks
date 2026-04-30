@@ -1,0 +1,58 @@
+{
+  "name": "ghost-blocks",
+  "version": "0.1.0",
+  "description": "Publish to Ghost CMS using a simple, flat content blocks format. Wraps the Ghost Admin API and builds Lexical documents internally.",
+  "keywords": [
+    "ghost",
+    "cms",
+    "lexical",
+    "blog",
+    "publishing",
+    "admin-api",
+    "content-blocks"
+  ],
+  "homepage": "https://github.com/heshamfm/ghost-blocks",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heshamfm/ghost-blocks.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/heshamfm/ghost-blocks/issues"
+  },
+  "license": "MIT",
+  "author": "Hesham <hesham@betterbrainlab.org>",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test --import tsx test/*.test.ts",
+    "test:integration": "node --test --import tsx test/integration/*.test.ts",
+    "clean": "rm -rf dist *.tsbuildinfo",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "dependencies": {
+    "form-data": "^4.0.0",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/node": "^20.11.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

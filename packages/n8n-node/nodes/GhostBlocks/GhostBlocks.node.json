@@ -1,0 +1,18 @@
+{
+  "node": "n8n-nodes-base.ghostBlocks",
+  "nodeVersion": "1.0",
+  "codexVersion": "1.0",
+  "categories": ["Marketing", "Content Management"],
+  "resources": {
+    "credentialDocumentation": [
+      {
+        "url": "https://github.com/heshamfm/ghost-blocks#authentication"
+      }
+    ],
+    "primaryDocumentation": [
+      {
+        "url": "https://github.com/heshamfm/ghost-blocks/tree/main/packages/n8n-node"
+      }
+    ]
+  }
+}

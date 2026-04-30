@@ -1,0 +1,20 @@
+{
+  "name": "ghost-publisher-tools",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Monorepo for ghost-blocks library and n8n-nodes-ghost-blocks community node",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "clean": "npm run clean --workspaces --if-present"
+  },
+  "author": "Hesham <hesham@betterbrainlab.org>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
