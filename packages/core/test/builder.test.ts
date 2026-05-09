@@ -69,6 +69,19 @@ test('builds a callout card', async () => {
   assert.equal(node.backgroundColor, 'green');
 });
 
+test('callout text strips inline markdown (Ghost renders callouts as plain text)', async () => {
+  const doc = await buildAndParse([
+    {
+      type: 'callout',
+      text: '**S&P 500** is *crashing* — see [analysis](https://x.com)',
+      emoji: '📉',
+      color: 'red',
+    },
+  ]);
+  const node = doc.root.children[0];
+  assert.equal(node.calloutText, 'S&P 500 is crashing — see analysis');
+});
+
 test('builds a button card', async () => {
   const doc = await buildAndParse([
     { type: 'button', text: 'Click', url: 'https://x.com', alignment: 'left' },

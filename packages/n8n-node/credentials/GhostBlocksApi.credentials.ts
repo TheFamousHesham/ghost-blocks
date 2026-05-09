@@ -14,7 +14,7 @@ import { ICredentialType, INodeProperties, Icon } from 'n8n-workflow';
 export class GhostBlocksApi implements ICredentialType {
   name = 'ghostBlocksApi';
   displayName = 'Ghost Blocks API';
-  documentationUrl = 'https://github.com/heshamfm/ghost-blocks#authentication';
+  documentationUrl = 'https://github.com/TheFamousHesham/ghost-blocks#authentication';
   icon: Icon = 'file:ghost.svg';
 
   properties: INodeProperties[] = [

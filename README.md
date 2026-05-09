@@ -66,7 +66,7 @@ See [`packages/n8n-node/README.md`](./packages/n8n-node/README.md) for setup det
 ## Development
 
 ```bash
-git clone https://github.com/heshamfm/ghost-blocks
+git clone https://github.com/TheFamousHesham/ghost-blocks
 cd ghost-blocks
 npm install         # installs all workspaces
 npm run build       # builds both packages

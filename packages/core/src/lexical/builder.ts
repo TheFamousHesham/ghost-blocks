@@ -2,7 +2,7 @@
 // Takes flat content blocks and produces a valid Lexical JSON document.
 
 import type { ContentBlock, LexicalNode } from '../types.js';
-import { paragraphNode, headingNode, quoteNode } from './text-parser.js';
+import { paragraphNode, headingNode, quoteNode, stripInlineMarkdown } from './text-parser.js';
 import * as cards from './cards.js';
 import { OEmbedFetcher } from '../enrichers/oembed.js';
 import { OpenGraphFetcher } from '../enrichers/opengraph.js';
@@ -90,7 +90,7 @@ export class LexicalBuilder {
 
       case 'button':
         return cards.buttonCard({
-          buttonText: block.text,
+          buttonText: stripInlineMarkdown(block.text),
           buttonUrl: block.url,
           alignment: block.alignment,
         });
@@ -119,21 +119,26 @@ export class LexicalBuilder {
       }
 
       case 'callout':
+        // Callout text is rendered as plain text by Ghost — strip markdown
+        // markers so authors don't see literal asterisks.
         return cards.calloutCard({
           calloutEmoji: block.emoji,
-          calloutText: block.text,
+          calloutText: stripInlineMarkdown(block.text),
           backgroundColor: block.color,
         });
 
       case 'toggle':
-        return cards.toggleCard({ heading: block.heading, content: block.content });
+        return cards.toggleCard({
+          heading: stripInlineMarkdown(block.heading),
+          content: block.content,
+        });
 
       case 'header':
         return cards.headerCard({
           backgroundImageSrc: block.background_image,
-          heading: block.heading,
-          subheading: block.subheading,
-          buttonText: block.button_text,
+          heading: stripInlineMarkdown(block.heading),
+          subheading: stripInlineMarkdown(block.subheading),
+          buttonText: stripInlineMarkdown(block.button_text),
           buttonUrl: block.button_url,
         });
 
@@ -150,9 +155,9 @@ export class LexicalBuilder {
 
       case 'signup':
         return cards.signupCard({
-          header: block.heading,
-          subheader: block.subheading,
-          buttonText: block.button_text,
+          header: stripInlineMarkdown(block.heading),
+          subheader: stripInlineMarkdown(block.subheading),
+          buttonText: stripInlineMarkdown(block.button_text),
           buttonColor: block.button_color,
           buttonTextColor: block.button_text_color,
           backgroundColor: block.background_color,

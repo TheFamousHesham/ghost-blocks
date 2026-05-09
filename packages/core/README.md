@@ -13,6 +13,31 @@ npm install ghost-blocks
 
 Requires Node.js 18+.
 
+## Using with AI agents
+
+If you're generating blog content with an AI agent (Claude, GPT, etc.) and
+piping it into ghost-blocks, two ready-to-use resources ship with the package:
+
+**[`schema/ai-prompt.md`](./schema/ai-prompt.md)** — A copy-paste system prompt template
+that teaches an AI agent how to produce valid content blocks. Drop it into your
+agent's system message.
+
+**[`schema/blocks.schema.json`](./schema/blocks.schema.json)** — Formal JSON Schema (Draft-7)
+for strict structured-output validation. Use with OpenAI's `response_format`
+or Anthropic's `tool_use` `input_schema`.
+
+```js
+import { getAiPromptTemplate, getContentBlocksJsonSchema } from 'ghost-blocks';
+
+const systemPrompt = `You are a blog writer. ${getAiPromptTemplate()}`;
+const jsonSchema = getContentBlocksJsonSchema();
+
+// Pass `jsonSchema` to OpenAI structured outputs:
+//   response_format: { type: 'json_schema', json_schema: { name: 'blogPost', schema: jsonSchema, strict: true } }
+// or to Anthropic tool_use:
+//   tools: [{ name: 'submit_blog_post', input_schema: jsonSchema }]
+```
+
 ## Authentication
 
 Create a custom integration in Ghost Admin:

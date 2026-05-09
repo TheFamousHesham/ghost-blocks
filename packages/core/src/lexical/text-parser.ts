@@ -138,3 +138,22 @@ export function quoteNode(text: string): LexicalNode {
     version: 1,
   };
 }
+
+/**
+ * Remove inline markdown markers from plain-text fields (callout text, signup
+ * headings, button labels, etc.). Ghost stores these as plain strings and
+ * doesn't parse markdown — passing "**bold**" results in literal asterisks.
+ *
+ * This strips the markers but keeps the visible text:
+ *   "**S&P 500** is *crashing* — see [analysis](https://x.com)"
+ *   → "S&P 500 is crashing — see analysis"
+ */
+export function stripInlineMarkdown(input: string | undefined): string {
+  if (!input || typeof input !== 'string') return '';
+  return input
+    .replace(/\*\*\*(.+?)\*\*\*/g, '$1')         // ***bold italic***
+    .replace(/\*\*(.+?)\*\*/g, '$1')             // **bold**
+    .replace(/\*(.+?)\*/g, '$1')                 // *italic*
+    .replace(/`([^`]+)`/g, '$1')                 // `code`
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');    // [text](url)
+}

@@ -1,0 +1,384 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/TheFamousHesham/ghost-blocks/schema/blocks.schema.json",
+  "title": "Ghost Blocks Content",
+  "description": "Schema for the structured output of an AI agent producing blog content for the ghost-blocks library. The top-level object includes title, optional metadata, and an ordered array of typed content blocks.",
+  "type": "object",
+  "required": ["title", "blocks"],
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Post title. Keep under 70 characters for SEO.",
+      "maxLength": 200
+    },
+    "excerpt": {
+      "type": "string",
+      "description": "Subtitle / excerpt shown in feeds and previews.",
+      "maxLength": 300
+    },
+    "meta_description": {
+      "type": "string",
+      "description": "SEO meta description. Keep under 160 characters.",
+      "maxLength": 320
+    },
+    "blocks": {
+      "type": "array",
+      "description": "Ordered array of content blocks.",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/Block" }
+    }
+  },
+  "definitions": {
+    "Block": {
+      "oneOf": [
+        { "$ref": "#/definitions/ParagraphBlock" },
+        { "$ref": "#/definitions/HeadingBlock" },
+        { "$ref": "#/definitions/QuoteBlock" },
+        { "$ref": "#/definitions/ImageBlock" },
+        { "$ref": "#/definitions/GalleryBlock" },
+        { "$ref": "#/definitions/DividerBlock" },
+        { "$ref": "#/definitions/ButtonBlock" },
+        { "$ref": "#/definitions/BookmarkBlock" },
+        { "$ref": "#/definitions/CalloutBlock" },
+        { "$ref": "#/definitions/ToggleBlock" },
+        { "$ref": "#/definitions/HeaderBlock" },
+        { "$ref": "#/definitions/SignupBlock" },
+        { "$ref": "#/definitions/PaywallBlock" },
+        { "$ref": "#/definitions/CallToActionBlock" },
+        { "$ref": "#/definitions/HtmlBlock" },
+        { "$ref": "#/definitions/MarkdownBlock" },
+        { "$ref": "#/definitions/CodeblockBlock" },
+        { "$ref": "#/definitions/EmbedBlock" },
+        { "$ref": "#/definitions/VideoBlock" },
+        { "$ref": "#/definitions/AudioBlock" },
+        { "$ref": "#/definitions/FileBlock" },
+        { "$ref": "#/definitions/ProductBlock" },
+        { "$ref": "#/definitions/EmailContentBlock" },
+        { "$ref": "#/definitions/EmailCtaBlock" }
+      ]
+    },
+
+    "ParagraphBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "text"],
+      "properties": {
+        "type": { "const": "paragraph" },
+        "text": {
+          "type": "string",
+          "description": "Paragraph text. Supports inline markdown: **bold**, *italic*, ***bold italic***, `code`, [link text](url)."
+        }
+      }
+    },
+
+    "HeadingBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "text"],
+      "properties": {
+        "type": { "const": "heading" },
+        "text": { "type": "string", "description": "Heading text. Supports inline markdown." },
+        "level": {
+          "type": "integer",
+          "enum": [1, 2, 3, 4, 5, 6],
+          "description": "Heading level. Default 2."
+        }
+      }
+    },
+
+    "QuoteBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "text"],
+      "properties": {
+        "type": { "const": "quote" },
+        "text": { "type": "string", "description": "Quote text. Supports inline markdown." }
+      }
+    },
+
+    "ImageBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "src"],
+      "properties": {
+        "type": { "const": "image" },
+        "src": { "type": "string", "description": "Image URL. Use 'PLACEHOLDER' if it will be filled in downstream." },
+        "alt": { "type": "string", "description": "Alt text for accessibility and SEO." },
+        "caption": { "type": "string" },
+        "width": {
+          "oneOf": [
+            { "type": "number" },
+            { "type": "string", "enum": ["wide", "full"] }
+          ]
+        },
+        "height": { "type": "number" }
+      }
+    },
+
+    "GalleryBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "images"],
+      "properties": {
+        "type": { "const": "gallery" },
+        "images": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["src"],
+            "properties": {
+              "src": { "type": "string" },
+              "alt": { "type": "string" },
+              "caption": { "type": "string" },
+              "width": { "type": "number" },
+              "height": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+
+    "DividerBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": { "type": { "const": "divider" } }
+    },
+
+    "ButtonBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "text", "url"],
+      "properties": {
+        "type": { "const": "button" },
+        "text": { "type": "string", "description": "Button label. Plain text — no markdown." },
+        "url": { "type": "string" },
+        "alignment": { "type": "string", "enum": ["left", "center", "right"] }
+      }
+    },
+
+    "BookmarkBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "url"],
+      "properties": {
+        "type": { "const": "bookmark" },
+        "url": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "icon": { "type": "string" },
+        "thumbnail": { "type": "string" },
+        "author": { "type": "string" },
+        "publisher": { "type": "string" },
+        "caption": { "type": "string" }
+      }
+    },
+
+    "CalloutBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "text"],
+      "properties": {
+        "type": { "const": "callout" },
+        "text": { "type": "string", "description": "Callout text. Plain text — no markdown." },
+        "emoji": { "type": "string" },
+        "color": {
+          "type": "string",
+          "enum": ["blue", "green", "yellow", "red", "pink", "purple", "grey", "white", "accent"]
+        }
+      }
+    },
+
+    "ToggleBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "heading", "content"],
+      "properties": {
+        "type": { "const": "toggle" },
+        "heading": { "type": "string" },
+        "content": { "type": "string" }
+      }
+    },
+
+    "HeaderBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "heading"],
+      "properties": {
+        "type": { "const": "header" },
+        "heading": { "type": "string" },
+        "subheading": { "type": "string" },
+        "background_image": { "type": "string" },
+        "button_text": { "type": "string" },
+        "button_url": { "type": "string" }
+      }
+    },
+
+    "SignupBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": { "const": "signup" },
+        "heading": { "type": "string" },
+        "subheading": { "type": "string" },
+        "button_text": { "type": "string" },
+        "button_color": { "type": "string" },
+        "button_text_color": { "type": "string" },
+        "background_color": { "type": "string" },
+        "text_color": { "type": "string" },
+        "alignment": { "type": "string", "enum": ["left", "center"] },
+        "layout": { "type": "string", "enum": ["wide", "split", "full", "regular"] },
+        "background_image": { "type": "string" },
+        "disclaimer": { "type": "string" },
+        "success_message": { "type": "string" }
+      }
+    },
+
+    "PaywallBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": { "type": { "const": "paywall" } }
+    },
+
+    "CallToActionBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": { "const": "call_to_action" },
+        "text": { "type": "string" },
+        "html": { "type": "string" },
+        "button_text": { "type": "string" },
+        "button_url": { "type": "string" },
+        "background_color": { "type": "string" },
+        "layout": { "type": "string" },
+        "sponsor_label": { "type": "boolean" }
+      }
+    },
+
+    "HtmlBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "html"],
+      "properties": {
+        "type": { "const": "html" },
+        "html": { "type": "string" }
+      }
+    },
+
+    "MarkdownBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "markdown"],
+      "properties": {
+        "type": { "const": "markdown" },
+        "markdown": { "type": "string" }
+      }
+    },
+
+    "CodeblockBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "code"],
+      "properties": {
+        "type": { "const": "codeblock" },
+        "code": { "type": "string" },
+        "language": { "type": "string" },
+        "caption": { "type": "string" }
+      }
+    },
+
+    "EmbedBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "url"],
+      "properties": {
+        "type": { "const": "embed" },
+        "url": { "type": "string", "description": "URL to embed. YouTube, Vimeo, Twitter, Spotify, SoundCloud, CodePen are auto-detected via oEmbed." },
+        "html": { "type": "string", "description": "Optional pre-built embed HTML. If omitted, oEmbed is fetched." }
+      }
+    },
+
+    "VideoBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "src"],
+      "properties": {
+        "type": { "const": "video" },
+        "src": { "type": "string" },
+        "caption": { "type": "string" },
+        "thumbnail": { "type": "string" }
+      }
+    },
+
+    "AudioBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "src"],
+      "properties": {
+        "type": { "const": "audio" },
+        "src": { "type": "string" },
+        "title": { "type": "string" },
+        "duration": { "type": "number" }
+      }
+    },
+
+    "FileBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "src"],
+      "properties": {
+        "type": { "const": "file" },
+        "src": { "type": "string" },
+        "title": { "type": "string" },
+        "filename": { "type": "string" },
+        "caption": { "type": "string" },
+        "file_size": { "type": "number" }
+      }
+    },
+
+    "ProductBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "title"],
+      "properties": {
+        "type": { "const": "product" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "image": { "type": "string" },
+        "button_text": { "type": "string" },
+        "button_url": { "type": "string" },
+        "rating": { "type": "number", "minimum": 0, "maximum": 5 }
+      }
+    },
+
+    "EmailContentBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "html"],
+      "properties": {
+        "type": { "const": "email_content" },
+        "html": { "type": "string" }
+      }
+    },
+
+    "EmailCtaBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": { "const": "email_cta" },
+        "text": { "type": "string" },
+        "html": { "type": "string" },
+        "button_text": { "type": "string" },
+        "button_url": { "type": "string" },
+        "segment": { "type": "string" }
+      }
+    }
+  }
+}

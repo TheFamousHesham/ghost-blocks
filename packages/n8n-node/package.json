@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-ghost-blocks",
-  "version": "0.1.0",
+  "version": "0.4.1",
   "description": "n8n community node to publish Ghost CMS posts using simple content blocks. Wraps the ghost-blocks library.",
   "keywords": [
     "n8n-community-node-package",
@@ -10,14 +10,14 @@
     "blog",
     "publishing"
   ],
-  "homepage": "https://github.com/heshamfm/ghost-blocks",
+  "homepage": "https://github.com/TheFamousHesham/ghost-blocks",
   "repository": {
     "type": "git",
-    "url": "https://github.com/heshamfm/ghost-blocks.git",
+    "url": "https://github.com/TheFamousHesham/ghost-blocks.git",
     "directory": "packages/n8n-node"
   },
   "bugs": {
-    "url": "https://github.com/heshamfm/ghost-blocks/issues"
+    "url": "https://github.com/TheFamousHesham/ghost-blocks/issues"
   },
   "license": "MIT",
   "author": "Hesham <hesham@betterbrainlab.org>",
@@ -42,7 +42,7 @@
     ]
   },
   "dependencies": {
-    "ghost-blocks": "^0.1.0"
+    "ghost-blocks": "^0.3.0"
   },
   "peerDependencies": {
     "n8n-workflow": "*"

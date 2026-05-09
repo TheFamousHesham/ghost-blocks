@@ -11,6 +11,7 @@ export { OpenGraphFetcher } from './enrichers/opengraph.js';
 // Lexical primitives (advanced use)
 export {
   parseInlineText,
+  stripInlineMarkdown,
   textNode,
   linkNode,
   paragraphNode,
@@ -18,6 +19,9 @@ export {
   quoteNode,
 } from './lexical/text-parser.js';
 export * as cards from './lexical/cards.js';
+
+// Schema helpers — expose the AI prompt template and JSON Schema
+export { getAiPromptTemplate, getContentBlocksJsonSchema } from './schema.js';
 
 // Types
 export type {

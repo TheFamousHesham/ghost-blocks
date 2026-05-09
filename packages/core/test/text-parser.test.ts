@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseInlineText } from '../src/lexical/text-parser.js';
+import { parseInlineText, stripInlineMarkdown } from '../src/lexical/text-parser.js';
 
 test('parses plain text into a single text node', () => {
   const nodes = parseInlineText('hello world');
@@ -67,4 +67,40 @@ test('handles undefined input', () => {
   const nodes = parseInlineText(undefined);
   assert.equal(nodes.length, 1);
   assert.equal((nodes[0] as any).text, '');
+});
+
+// stripInlineMarkdown — used for callout text, signup headings, etc.
+
+test('stripInlineMarkdown removes **bold**', () => {
+  assert.equal(stripInlineMarkdown('hello **world**'), 'hello world');
+});
+
+test('stripInlineMarkdown removes *italic*', () => {
+  assert.equal(stripInlineMarkdown('hello *world*'), 'hello world');
+});
+
+test('stripInlineMarkdown removes ***bold italic***', () => {
+  assert.equal(stripInlineMarkdown('***strong***'), 'strong');
+});
+
+test('stripInlineMarkdown removes `code`', () => {
+  assert.equal(stripInlineMarkdown('use `npm install`'), 'use npm install');
+});
+
+test('stripInlineMarkdown removes [text](url) links', () => {
+  assert.equal(stripInlineMarkdown('see [docs](https://example.com)'), 'see docs');
+});
+
+test('stripInlineMarkdown handles multiple markers in one string', () => {
+  const input = '**S&P 500** is *crashing* — see [analysis](https://example.com)';
+  assert.equal(stripInlineMarkdown(input), 'S&P 500 is crashing — see analysis');
+});
+
+test('stripInlineMarkdown handles plain text unchanged', () => {
+  assert.equal(stripInlineMarkdown('plain old text'), 'plain old text');
+});
+
+test('stripInlineMarkdown handles empty/undefined', () => {
+  assert.equal(stripInlineMarkdown(''), '');
+  assert.equal(stripInlineMarkdown(undefined), '');
 });

@@ -93,15 +93,30 @@ export class GhostBlocks implements INodeType {
         displayOptions: { show: { resource: ['post'], operation: ['update'] } },
       },
 
-      // ---- Create/Update: Content blocks
+      // ---- Create/Update: Content blocks (JSON or expression)
       {
-        displayName: 'Content (Blocks JSON)',
+        displayName:
+          'Content is a JSON array of typed blocks. Each block has a "type" plus type-specific fields. Available types: paragraph, heading, quote, image, gallery, divider, button, bookmark, callout, toggle, header, signup, paywall, call_to_action, html, markdown, codeblock, embed, video, audio, file, product, email_content, email_cta. Inline markdown (**bold**, *italic*, `code`, [link](url)) works in paragraph, heading, and quote only — other types render as plain text.',
+        name: 'aiFormatHint',
+        type: 'notice',
+        default: '',
+        displayOptions: { show: { resource: ['post'], operation: ['create', 'update'] } },
+      },
+      {
+        displayName:
+          'AI agent system prompt template: https://wire.theskepticinvestor.com/content/files/ghost-blocks-ai-prompt.md  •  JSON Schema for strict structured output: https://wire.theskepticinvestor.com/content/files/ghost-blocks-schema.json',
+        name: 'aiResourceLinks',
+        type: 'notice',
+        default: '',
+        displayOptions: { show: { resource: ['post'], operation: ['create', 'update'] } },
+      },
+      {
+        displayName: 'Content',
         name: 'content',
         type: 'json',
-        default:
-          '[\n  { "type": "paragraph", "text": "Hello with **bold** and *italic* and a [link](https://example.com)." },\n  { "type": "heading", "level": 2, "text": "Section" },\n  { "type": "divider" }\n]',
+        default: '={{ $json.blocks }}',
         description:
-          'Array of content blocks. See https://github.com/heshamfm/ghost-blocks for the full block reference. Mutually exclusive with HTML.',
+          'Array of Ghost content blocks. Typically wired from an upstream AI agent via an expression like {{ $json.blocks }}. Example: [{"type":"paragraph","text":"Hello **world**"},{"type":"heading","text":"Section","level":2},{"type":"divider"}]',
         displayOptions: { show: { resource: ['post'], operation: ['create', 'update'] } },
       },
 
@@ -464,7 +479,6 @@ async function runPostOperation(
 
 function buildPostInput(this: IExecuteFunctions, itemIndex: number): Partial<CreatePostInput> {
   const title = this.getNodeParameter('title', itemIndex, '') as string;
-  const contentParam = this.getNodeParameter('content', itemIndex, '') as string | unknown[];
   const additionalFields = this.getNodeParameter('additionalFields', itemIndex, {}) as Record<
     string,
     unknown
@@ -472,9 +486,22 @@ function buildPostInput(this: IExecuteFunctions, itemIndex: number): Partial<Cre
   const seo = this.getNodeParameter('seo', itemIndex, {}) as Record<string, unknown>;
   const newsletter = this.getNodeParameter('newsletter', itemIndex, {}) as Record<string, unknown>;
 
+  // Content can arrive as a JSON string (literal) or as a parsed array (from
+  // an expression like {{ $json.blocks }}). Handle both.
+  const contentParam = this.getNodeParameter('content', itemIndex, '') as string | unknown[];
   let content: ContentBlock[] | undefined;
-  if (contentParam) {
-    content = typeof contentParam === 'string' ? JSON.parse(contentParam) : (contentParam as ContentBlock[]);
+  if (typeof contentParam === 'string') {
+    if (contentParam.trim()) {
+      try {
+        content = JSON.parse(contentParam);
+      } catch (e) {
+        throw new Error(
+          `Could not parse Content as JSON. Pass an array of block objects, or wire from an upstream node. ${(e as Error).message}`,
+        );
+      }
+    }
+  } else if (Array.isArray(contentParam)) {
+    content = contentParam as ContentBlock[];
   }
 
   const input: Record<string, unknown> = {};

@@ -6,12 +6,12 @@
   "resources": {
     "credentialDocumentation": [
       {
-        "url": "https://github.com/heshamfm/ghost-blocks#authentication"
+        "url": "https://github.com/TheFamousHesham/ghost-blocks#authentication"
       }
     ],
     "primaryDocumentation": [
       {
-        "url": "https://github.com/heshamfm/ghost-blocks/tree/main/packages/n8n-node"
+        "url": "https://github.com/TheFamousHesham/ghost-blocks/tree/main/packages/n8n-node"
       }
     ]
   }
