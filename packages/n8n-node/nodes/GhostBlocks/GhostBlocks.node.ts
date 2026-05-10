@@ -96,15 +96,7 @@ export class GhostBlocks implements INodeType {
       // ---- Create/Update: Content blocks (JSON or expression)
       {
         displayName:
-          'Content is a JSON array of typed blocks. Each block has a "type" plus type-specific fields. Available types: paragraph, heading, quote, image, gallery, divider, button, bookmark, callout, toggle, header, signup, paywall, call_to_action, html, markdown, codeblock, embed, video, audio, file, product, email_content, email_cta. Inline markdown (**bold**, *italic*, `code`, [link](url)) works in paragraph, heading, and quote only — other types render as plain text.',
-        name: 'aiFormatHint',
-        type: 'notice',
-        default: '',
-        displayOptions: { show: { resource: ['post'], operation: ['create', 'update'] } },
-      },
-      {
-        displayName:
-          'AI agent system prompt template: https://github.com/TheFamousHesham/ghost-blocks/blob/master/packages/core/schema/ai-prompt.md  •  JSON Schema for strict structured output: https://github.com/TheFamousHesham/ghost-blocks/blob/master/packages/core/schema/blocks.schema.json',
+          'Using an AI agent? Copy the <a href="https://github.com/TheFamousHesham/ghost-blocks/blob/master/packages/core/schema/ai-prompt.md" target="_blank">system prompt template</a> or use the <a href="https://github.com/TheFamousHesham/ghost-blocks/blob/master/packages/core/schema/blocks.schema.json" target="_blank">JSON Schema</a> for strict validation.',
         name: 'aiResourceLinks',
         type: 'notice',
         default: '',
@@ -116,7 +108,7 @@ export class GhostBlocks implements INodeType {
         type: 'json',
         default: '={{ $json.blocks }}',
         description:
-          'Array of Ghost content blocks. Typically wired from an upstream AI agent via an expression like {{ $json.blocks }}. Example: [{"type":"paragraph","text":"Hello **world**"},{"type":"heading","text":"Section","level":2},{"type":"divider"}]',
+          'JSON array of typed blocks. Each block has a "type" field plus type-specific fields. Wire from an upstream node via {{ $json.blocks }}.',
         displayOptions: { show: { resource: ['post'], operation: ['create', 'update'] } },
       },
 
