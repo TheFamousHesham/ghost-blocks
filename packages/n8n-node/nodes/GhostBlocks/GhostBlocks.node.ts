@@ -104,7 +104,7 @@ export class GhostBlocks implements INodeType {
       },
       {
         displayName:
-          'AI agent system prompt template: https://wire.theskepticinvestor.com/content/files/ghost-blocks-ai-prompt.md  •  JSON Schema for strict structured output: https://wire.theskepticinvestor.com/content/files/ghost-blocks-schema.json',
+          'AI agent system prompt template: https://github.com/TheFamousHesham/ghost-blocks/blob/master/packages/core/schema/ai-prompt.md  •  JSON Schema for strict structured output: https://github.com/TheFamousHesham/ghost-blocks/blob/master/packages/core/schema/blocks.schema.json',
         name: 'aiResourceLinks',
         type: 'notice',
         default: '',
