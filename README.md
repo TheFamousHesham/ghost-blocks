@@ -81,6 +81,11 @@ GHOST_ADMIN_KEY=id:hex_secret \
 npm run -w ghost-blocks test:integration
 ```
 
+## More from the author
+
+- **[Nodey](https://getnodey.com)** *(launching soon)* — A mobile command centre for n8n. Run and debug workflows from your phone, with an AI workflow builder, geo-fenced location-based triggers, and NFC triggers.
+- **[n8n workflow templates](https://github.com/TheFamousHesham/n8n_workflows)** — A growing collection of production-ready n8n workflow templates for common automation patterns. Free to use and adapt.
+
 ## License
 
 MIT — see [LICENSE](./LICENSE).

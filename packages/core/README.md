@@ -269,6 +269,14 @@ import type {
 } from 'ghost-blocks';
 ```
 
+## More from the author
+
+If you publish to Ghost from n8n workflows, you might also like:
+
+- **[n8n-nodes-ghost-blocks](https://www.npmjs.com/package/n8n-nodes-ghost-blocks)** — The official n8n community node wrapping this library. Drag-and-drop publishing in n8n.
+- **[Nodey](https://getnodey.com)** *(launching soon)* — A mobile command centre for n8n. Run and debug workflows from your phone, with an AI workflow builder, geo-fenced location-based triggers, and NFC triggers.
+- **[n8n workflow templates](https://github.com/TheFamousHesham/n8n_workflows)** — A growing collection of production-ready n8n workflow templates.
+
 ## License
 
 MIT

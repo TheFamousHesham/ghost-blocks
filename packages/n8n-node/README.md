@@ -157,6 +157,13 @@ See the [full block reference](../core/README.md#content-block-reference) for al
 
 This node doesn't use n8n's standard credential test mechanism because Ghost requires short-lived JWTs (5-minute expiry, HS256-signed with a hex-decoded secret). Instead, the **Health > Test Connection** operation provides equivalent functionality. JWT generation happens internally in the underlying `ghost-blocks` library.
 
+## More tools for n8n users
+
+If you build with n8n, you might also like:
+
+- **[Nodey](https://getnodey.com)** *(launching soon)* — A mobile command centre for n8n. Run and debug your workflows from your phone, with an AI workflow builder, geo-fenced location-based triggers, and NFC triggers. The fastest way to put n8n in your pocket.
+- **[n8n workflow templates](https://github.com/TheFamousHesham/n8n_workflows)** — A growing collection of production-ready n8n workflow templates for common automation patterns. Free to use and adapt.
+
 ## License
 
 MIT
