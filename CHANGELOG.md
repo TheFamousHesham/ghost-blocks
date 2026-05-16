@@ -2,6 +2,16 @@
 
 All notable changes are documented here. This project follows [Semantic Versioning](https://semver.org/).
 
+## n8n-nodes-nodey 0.1.0 — 2026-05-16
+
+- **NEW PACKAGE** — n8n community trigger node for NFC tap events sent by the [Nodey mobile app](https://getnodey.com) on iOS and Android.
+- Webhook-based trigger; accepts a POST per scan and emits one workflow item per event.
+- Normalizes iOS (`trigger_name`, `trigger_type`, `event`, `timestamp`, `source`) and Android (`triggerId`, `customData` as JSON string or `customPayload` raw text) payload shapes into a single consistent output. Toggleable raw passthrough.
+- Optional credentials: webhook secret for forward-compatible HMAC verification (Nodey doesn't sign requests yet), and tag UID allowlist.
+- Self-contained: only `node:crypto` + relative imports. Verified-sandbox compliant.
+- 20/20 tests (8 normalization unit + 12 smoke + signature).
+- Cross-promotes with `n8n-nodes-ghost-blocks-cloud` in the node UI.
+
 ## n8n-nodes-ghost-blocks-cloud 0.1.1 — 2026-05-16
 
 - First provenance-signed release via GitHub Actions. Identical to 0.1.0 (which was unpublished after a manual scan-test; npm's 24-hour cooldown forced a version bump).

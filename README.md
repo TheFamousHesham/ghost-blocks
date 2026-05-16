@@ -1,14 +1,15 @@
-# Ghost Blocks
+# Ghost Blocks (and friends)
 
-Publish to [Ghost CMS](https://ghost.org) using a simple, flat content blocks format. Internally builds Lexical documents and handles JWT authentication, so you don't have to.
+Tools for publishing to [Ghost CMS](https://ghost.org) — plus an unrelated [n8n trigger node](./packages/n8n-node-nodey) for the [Nodey mobile app](https://getnodey.com) that lives in the same monorepo.
 
-This monorepo contains three packages:
+This monorepo contains four packages:
 
 | Package | Description | Audience |
 |---|---|---|
 | [`ghost-blocks`](./packages/core) | Node.js library for publishing to Ghost. Use directly in any Node.js app. | Any Node.js consumer |
 | [`n8n-nodes-ghost-blocks`](./packages/n8n-node) | n8n community node, full features (image upload, bookmark/embed auto-enrichment). | **Self-hosted n8n** |
 | [`n8n-nodes-ghost-blocks-cloud`](./packages/n8n-node-cloud) | n8n community node, slim verified-compatible edition. | **n8n Cloud** |
+| [`n8n-nodes-nodey`](./packages/n8n-node-nodey) | n8n community trigger node — fires a workflow when an NFC tag is scanned via the [Nodey mobile app](https://getnodey.com). Verified-compatible. | **n8n Cloud + self-hosted** |
 
 ## Why this exists
 

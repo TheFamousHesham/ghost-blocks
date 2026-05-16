@@ -1,0 +1,60 @@
+{
+  "name": "n8n-nodes-nodey",
+  "version": "0.1.0",
+  "description": "n8n community node that triggers workflows from NFC tag scans in the Nodey mobile app (iOS + Android). Verified-compatible, accepts payloads from both platforms and normalizes them into a single shape.",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "trigger",
+    "nfc",
+    "webhook",
+    "nodey",
+    "mobile",
+    "automation",
+    "ios",
+    "android"
+  ],
+  "homepage": "https://github.com/TheFamousHesham/ghost-blocks/tree/master/packages/n8n-node-nodey",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheFamousHesham/ghost-blocks.git",
+    "directory": "packages/n8n-node-nodey"
+  },
+  "bugs": {
+    "url": "https://github.com/TheFamousHesham/ghost-blocks/issues"
+  },
+  "license": "MIT",
+  "author": "Hesham <hesham@betterbrainlab.org>",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && npm run copy:assets",
+    "copy:assets": "node -e \"require('fs').cpSync('nodes', 'dist/nodes', { recursive: true, filter: (s) => !s.endsWith('.ts') })\"",
+    "lint": "tsc --noEmit",
+    "test": "node --test test/",
+    "clean": "rm -rf dist *.tsbuildinfo",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/NodeyApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/NodeyNfcTrigger/NodeyNfcTrigger.node.js"
+    ]
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "n8n-workflow": "^1.30.0",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
