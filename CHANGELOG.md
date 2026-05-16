@@ -2,6 +2,24 @@
 
 All notable changes are documented here. This project follows [Semantic Versioning](https://semver.org/).
 
+## n8n-nodes-ghost-blocks-cloud 0.1.0 — 2026-05-16
+
+- **NEW PACKAGE** — slim, sandbox-compliant version of the n8n node for n8n Cloud (verified).
+- Self-contained: only uses `node:crypto` + n8n's HTTP helpers. Zero npm dependencies.
+- Passes `@n8n/scan-community-package` security checks.
+- Skips features that require Node APIs blocked by the Cloud sandbox: image upload, bookmark/embed auto-enrichment, oEmbed/OpenGraph metadata fetching.
+- Cross-promotes with `n8n-nodes-ghost-blocks` (full self-hosted version).
+
+## n8n-nodes-ghost-blocks 0.4.6 — 2026-05-16
+
+- Added cross-promotion notice pointing n8n Cloud users at the new `n8n-nodes-ghost-blocks-cloud` package.
+- README now documents the two-package split.
+
+## n8n-nodes-ghost-blocks 0.4.5 — 2026-05-16
+
+- Bundled with esbuild (ghost-blocks, jsonwebtoken, form-data all inlined). Published package now has `dependencies: {}`.
+- Note: still flagged by n8n's community node scanner because the bundle uses Node built-ins (`fs`, `dns`, etc.) and globals (`globalThis`, `__dirname`) that n8n Cloud's sandbox blocks. Self-hosted n8n only. For Cloud, see `n8n-nodes-ghost-blocks-cloud`.
+
 ## ghost-blocks 0.3.1 — 2026-05-10
 
 - Republished via GitHub Actions with npm provenance attestation (required for n8n community-node verification from May 2026 onwards).

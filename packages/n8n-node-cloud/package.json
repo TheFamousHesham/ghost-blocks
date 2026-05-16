@@ -1,7 +1,7 @@
 {
-  "name": "n8n-nodes-ghost-blocks",
-  "version": "0.4.6",
-  "description": "n8n community node to publish Ghost CMS posts using simple content blocks. Wraps the ghost-blocks library.",
+  "name": "n8n-nodes-ghost-blocks-cloud",
+  "version": "0.1.0",
+  "description": "n8n community node to publish Ghost CMS posts using content blocks. Slim, sandbox-compliant version for n8n Cloud (verified). For full features (image upload, bookmark/embed auto-enrichment), use n8n-nodes-ghost-blocks on self-hosted n8n.",
   "keywords": [
     "n8n-community-node-package",
     "n8n",
@@ -14,7 +14,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/TheFamousHesham/ghost-blocks.git",
-    "directory": "packages/n8n-node"
+    "directory": "packages/n8n-node-cloud"
   },
   "bugs": {
     "url": "https://github.com/TheFamousHesham/ghost-blocks/issues"
@@ -23,7 +23,7 @@
   "author": "Hesham <hesham@betterbrainlab.org>",
   "main": "index.js",
   "scripts": {
-    "build": "node build.mjs && npm run copy:assets",
+    "build": "tsc && npm run copy:assets",
     "copy:assets": "node -e \"require('fs').cpSync('nodes', 'dist/nodes', { recursive: true, filter: (s) => !s.endsWith('.ts') })\"",
     "lint": "tsc --noEmit",
     "clean": "rm -rf dist *.tsbuildinfo",
@@ -35,10 +35,10 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/GhostBlocksApi.credentials.js"
+      "dist/credentials/GhostBlocksCloudApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/GhostBlocks/GhostBlocks.node.js"
+      "dist/nodes/GhostBlocksCloud/GhostBlocksCloud.node.js"
     ]
   },
   "peerDependencies": {
@@ -46,8 +46,6 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
-    "esbuild": "^0.24.0",
-    "ghost-blocks": "^0.3.1",
     "n8n-workflow": "^1.30.0",
     "typescript": "^5.3.3"
   },

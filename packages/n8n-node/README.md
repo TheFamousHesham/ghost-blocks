@@ -7,6 +7,8 @@
 
 This node wraps the [`ghost-blocks`](../core) library, so you get clean JSON in, complete posts out — no Lexical wrangling, no JWT tokens.
 
+> **n8n Cloud user?** This is the full self-hosted version. For n8n Cloud, install the verified [`n8n-nodes-ghost-blocks-cloud`](https://www.npmjs.com/package/n8n-nodes-ghost-blocks-cloud) package instead — it has the same content blocks format and core publishing flow, but skips features that need Node APIs n8n Cloud's sandbox doesn't allow (image upload, bookmark/embed auto-enrichment).
+
 ## Installation
 
 In your n8n instance:

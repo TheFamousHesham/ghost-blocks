@@ -96,6 +96,14 @@ export class GhostBlocks implements INodeType {
       // ---- Create/Update: Content blocks (JSON or expression)
       {
         displayName:
+          'On n8n Cloud? Use the verified <a href="https://www.npmjs.com/package/n8n-nodes-ghost-blocks-cloud" target="_blank">n8n-nodes-ghost-blocks-cloud</a> package instead (slim feature set). This full version requires self-hosted n8n.',
+        name: 'cloudVersionNotice',
+        type: 'notice',
+        default: '',
+        displayOptions: { show: { resource: ['post'], operation: ['create', 'update'] } },
+      },
+      {
+        displayName:
           'Using an AI agent? Copy the <a href="https://github.com/TheFamousHesham/ghost-blocks/blob/master/packages/core/schema/ai-prompt.md" target="_blank">system prompt template</a> or use the <a href="https://github.com/TheFamousHesham/ghost-blocks/blob/master/packages/core/schema/blocks.schema.json" target="_blank">JSON Schema</a> for strict validation.',
         name: 'aiResourceLinks',
         type: 'notice',

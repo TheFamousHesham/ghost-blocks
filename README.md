@@ -2,12 +2,13 @@
 
 Publish to [Ghost CMS](https://ghost.org) using a simple, flat content blocks format. Internally builds Lexical documents and handles JWT authentication, so you don't have to.
 
-This monorepo contains two packages:
+This monorepo contains three packages:
 
-| Package | Description |
-|---|---|
-| [`ghost-blocks`](./packages/core) | Node.js library for publishing to Ghost. Use directly in any Node.js app. |
-| [`n8n-nodes-ghost-blocks`](./packages/n8n-node) | n8n community node. Drag, drop, and publish from your n8n workflows. |
+| Package | Description | Audience |
+|---|---|---|
+| [`ghost-blocks`](./packages/core) | Node.js library for publishing to Ghost. Use directly in any Node.js app. | Any Node.js consumer |
+| [`n8n-nodes-ghost-blocks`](./packages/n8n-node) | n8n community node, full features (image upload, bookmark/embed auto-enrichment). | **Self-hosted n8n** |
+| [`n8n-nodes-ghost-blocks-cloud`](./packages/n8n-node-cloud) | n8n community node, slim verified-compatible edition. | **n8n Cloud** |
 
 ## Why this exists
 
