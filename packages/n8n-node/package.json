@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-ghost-blocks",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "n8n community node to publish Ghost CMS posts using simple content blocks. Wraps the ghost-blocks library.",
   "keywords": [
     "n8n-community-node-package",
@@ -42,7 +42,7 @@
     ]
   },
   "dependencies": {
-    "ghost-blocks": "^0.3.0"
+    "ghost-blocks": "^0.3.1"
   },
   "peerDependencies": {
     "n8n-workflow": "*"

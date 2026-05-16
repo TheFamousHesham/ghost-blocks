@@ -81,6 +81,25 @@ GHOST_ADMIN_KEY=id:hex_secret \
 npm run -w ghost-blocks test:integration
 ```
 
+## Releasing
+
+Releases are published to npm with **provenance attestations** via GitHub Actions — required for [n8n community-node verification](https://docs.n8n.io/integrations/creating-nodes/build/reference/verification-guidelines/) from May 2026 onwards.
+
+To release a new version of either package:
+
+1. Bump the `version` field in the relevant `packages/*/package.json`.
+2. Update `CHANGELOG.md`.
+3. Commit and push to `main`.
+4. Create and push a tag matching the pattern `<package-name>@<version>`:
+   ```bash
+   git tag -a ghost-blocks@0.3.2 -m "Release ghost-blocks 0.3.2"
+   git push origin ghost-blocks@0.3.2
+   ```
+5. The matching GitHub Action will build, test, verify the tag matches the package version, then publish with `--provenance`.
+
+GitHub Actions secrets required:
+- `NPM_TOKEN` — granular npm access token with publish rights on `ghost-blocks` and `n8n-nodes-ghost-blocks`.
+
 ## More from the author
 
 - **[Nodey](https://getnodey.com)** *(launching soon)* — A mobile command centre for n8n. Run and debug workflows from your phone, with an AI workflow builder, geo-fenced location-based triggers, and NFC triggers.

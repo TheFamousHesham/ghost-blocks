@@ -1,6 +1,6 @@
 {
   "name": "ghost-blocks",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Publish to Ghost CMS using a simple, flat content blocks format. Wraps the Ghost Admin API and builds Lexical documents internally.",
   "keywords": [
     "ghost",
