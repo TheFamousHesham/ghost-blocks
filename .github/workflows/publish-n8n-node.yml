@@ -28,16 +28,26 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build core (n8n node depends on it)
+      - name: Build core (n8n node bundles its compiled JS)
         run: npm run build --workspace=ghost-blocks
 
-      - name: Build n8n node
+      - name: Build n8n node (esbuild bundle — no runtime deps)
         run: npm run build --workspace=n8n-nodes-ghost-blocks
 
       - name: Run smoke tests
         run: |
           cd packages/n8n-node
           node --test test/smoke.test.js
+
+      - name: Verify bundle has no external requires (other than n8n-workflow)
+        run: |
+          cd packages/n8n-node
+          # Check that the bundle doesn't require ghost-blocks or any third-party package
+          if grep -E "require\(['\"](?!n8n-workflow)[^./\"]+['\"]\)" dist/nodes/GhostBlocks/GhostBlocks.node.js; then
+            echo "ERROR: bundled file still requires external packages"
+            exit 1
+          fi
+          echo "✓ Bundle is self-contained"
 
       - name: Verify tag matches package version
         run: |
