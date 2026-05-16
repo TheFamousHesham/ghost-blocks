@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-ghost-blocks-cloud",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "n8n community node to publish Ghost CMS posts using content blocks. Slim, sandbox-compliant version for n8n Cloud (verified). For full features (image upload, bookmark/embed auto-enrichment), use n8n-nodes-ghost-blocks on self-hosted n8n.",
   "keywords": [
     "n8n-community-node-package",

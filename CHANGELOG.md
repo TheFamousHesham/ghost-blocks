@@ -2,6 +2,10 @@
 
 All notable changes are documented here. This project follows [Semantic Versioning](https://semver.org/).
 
+## n8n-nodes-ghost-blocks-cloud 0.1.1 — 2026-05-16
+
+- First provenance-signed release via GitHub Actions. Identical to 0.1.0 (which was unpublished after a manual scan-test; npm's 24-hour cooldown forced a version bump).
+
 ## n8n-nodes-ghost-blocks-cloud 0.1.0 — 2026-05-16
 
 - **NEW PACKAGE** — slim, sandbox-compliant version of the n8n node for n8n Cloud (verified).
